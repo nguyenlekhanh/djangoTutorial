@@ -3,9 +3,9 @@ from django.http import HttpResponse
 from django.db.models import Q
 from django.template import loader
 from django.http import HttpResponse
-from .models import Room, Topic
+from .models import Room, Topic, User
 from .forms import RoomForm
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
