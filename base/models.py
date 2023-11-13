@@ -18,6 +18,13 @@ class Room(models.Model):
     #auto_now_add only first creating item
     created = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        #ordering
+        #descending
+        #ordering = ['updated', 'created']
+        #ascending
+        ordering = ['-updated', '-created']
+
     def __str__(self):
         return self.name
     
