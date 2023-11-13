@@ -4,7 +4,9 @@ from django.template import loader
 from django.http import HttpResponse
 from .models import Room, Topic
 from .forms import RoomForm
-
+from django.contrib.auth.models import User
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 
 # rooms = [
@@ -13,6 +15,28 @@ from .forms import RoomForm
 #     {'id': 3, 'name': 'Third room'},
 #     {'id': 4, 'name': 'Third room'},
 # ]
+
+def loginPage(request):
+    context = {}
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        try:
+            user = User.object.get(username=username)
+        except:
+            messages.error(request, 'User does not exits')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
+            messages.error(request, 'Username Or Password does not exits')
+
+    return render(request, 'base/login_register.html', context)
 
 def home(request):
     #template = loader.get_template("base/home.html")
